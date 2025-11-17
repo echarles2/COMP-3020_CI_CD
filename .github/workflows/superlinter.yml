@@ -40,7 +40,6 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          persist-credentials: false
       - name: Super-Linter (fix mode)
         uses: super-linter/super-linter@v8.2.1 # x-release-please-version
         env:
