@@ -12,7 +12,12 @@ jobs:
   lint:
     # Super-linter workflow running in check only mode
     # See https://github.com/super-linter/super-linter#get-started
-
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: super-linter/super-linter@v8.2.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   fix-lint-issues:
     permissions:
       # To write linting fixes
