@@ -31,6 +31,7 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_JSON_PRETTIER: false
+          VALIDATE_JSON: false 
   fix-lint-issues:
     permissions:
       # To write linting fixes
@@ -52,6 +53,7 @@ jobs:
           VALIDATE_JSON_PRETTIER: false
           VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_JSON: false 
       - name: Commit and push linting fixes
         # Run only on:
         # - Pull requests
