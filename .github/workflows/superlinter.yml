@@ -29,6 +29,7 @@ jobs:
           # Disable workflow security linting if you don't care about it right now
           VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           VALIDATE_NATURAL_LANGUAGE: false
+          FILTER_REGEX_EXCLUDE: "^(github_conf/|super-linter-output/)"
   fix-lint-issues:
     permissions:
       # To write linting fixes
@@ -46,6 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FIX_SHELL_SHFMT: true
           FIX_YAML_PRETTIER: true
+          FILTER_REGEX_EXCLUDE: "^(github_conf/|super-linter-output/)"
           VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           VALIDATE_NATURAL_LANGUAGE: false
       - name: Commit and push linting fixes
