@@ -10,14 +10,26 @@ permissions:
 
 jobs:
   lint:
-    # Super-linter workflow running in check only mode
-    # See https://github.com/super-linter/super-linter#get-started
+    name: Lint (check only)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
+
     steps:
-      - uses: actions/checkout@v5
-      - uses: super-linter/super-linter@v8.2.1
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Super-Linter (check only)
+        uses: super-linter/super-linter@v8.2.1 # x-release-please-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Disable workflow security linting if you don't care about it right now
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+
   fix-lint-issues:
     permissions:
       # To write linting fixes
@@ -30,16 +42,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Super-Linter
+      - name: Super-Linter (fix mode)
         uses: super-linter/super-linter@v8.2.1 # x-release-please-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Set your fix mode variables to true
           FIX_SHELL_SHFMT: true
           FIX_YAML_PRETTIER: true
-          # To reuse the same Super-linter configuration that you use in the
-          # lint job without duplicating it, see
-          # https://github.com/super-linter/super-linter/blob/main/docs/run-linter-locally.md#share-environment-variables-between-environments
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
       - name: Commit and push linting fixes
         # Run only on:
         # - Pull requests
